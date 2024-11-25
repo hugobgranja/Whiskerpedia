@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "CD7C60BD-3E8B-4746-B4D8-704AC97B591F",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "CatClientTests",
+        "name" : "CatClientTests"
+      }
+    }
+  ],
+  "version" : 1
+}

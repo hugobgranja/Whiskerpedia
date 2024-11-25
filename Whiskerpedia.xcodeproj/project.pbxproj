@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B9CC23F92CF4B4A800C7A015 /* CatServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = B9CC23F82CF4B4A800C7A015 /* CatServiceClient */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Whiskerpedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9E863D02CF4CFE30042C91C /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9CC23F92CF4B4A800C7A015 /* CatServiceClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +38,7 @@
 		B9CC23DB2CF4A53000C7A015 = {
 			isa = PBXGroup;
 			children = (
+				B9E863D12CF4CFE30042C91C /* Modules */,
 				B9CC23E62CF4A53100C7A015 /* Whiskerpedia */,
 				B9CC23E52CF4A53100C7A015 /* Products */,
 			);
@@ -43,6 +50,14 @@
 				B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B9E863D12CF4CFE30042C91C /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				B9E863D02CF4CFE30042C91C /* Core */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +80,7 @@
 			);
 			name = Whiskerpedia;
 			packageProductDependencies = (
+				B9CC23F82CF4B4A800C7A015 /* CatServiceClient */,
 			);
 			productName = Whiskerpedia;
 			productReference = B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */;
@@ -94,6 +110,8 @@
 			);
 			mainGroup = B9CC23DB2CF4A53000C7A015;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9CC23E52CF4A53100C7A015 /* Products */;
 			projectDirPath = "";
@@ -322,6 +340,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B9CC23F82CF4B4A800C7A015 /* CatServiceClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CatServiceClient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B9CC23DC2CF4A53000C7A015 /* Project object */;
 }
