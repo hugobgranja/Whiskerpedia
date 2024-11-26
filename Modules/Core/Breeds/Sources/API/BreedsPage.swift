@@ -1,6 +1,6 @@
 import Foundation
 
-public struct BreedsPage {
+public struct BreedsPage: Decodable, Sendable {
     public let breeds: [Breed]
     public let totalItemCount: Int
 

@@ -4,7 +4,10 @@ import PackageDescription
 
 let package = Package(
     name: "Core",
-    platforms: [.iOS(.v18)]
+    platforms: [.iOS(.v18)],
+    dependencies: [
+        .package(url: "https://github.com/onevcat/Kingfisher.git", from: "8.0.0")
+    ]
 )
 
 // MARK: Breeds
@@ -15,8 +18,18 @@ package.targets.append(contentsOf: [
     ),
     .target(
         name: "BreedsImpl",
-        dependencies: ["BreedsAPI"],
+        dependencies: [
+            "BreedsAPI",
+            "BreedsMocks",
+            "CatClientAPI",
+            "Kingfisher"
+        ],
         path: "Breeds/Sources/Impl"
+    ),
+    .target(
+        name: "BreedsMocks",
+        dependencies: ["BreedsAPI"],
+        path: "Breeds/Mocks"
     ),
 ])
 

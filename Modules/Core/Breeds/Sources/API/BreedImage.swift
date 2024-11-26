@@ -1,6 +1,6 @@
 import Foundation
 
-public struct BreedImage: Decodable {
+public struct BreedImage: Decodable, Sendable {
     public let url: String
 
     public init(url: String) {
