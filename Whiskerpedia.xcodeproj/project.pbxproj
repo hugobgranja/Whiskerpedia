@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B9CC23F92CF4B4A800C7A015 /* CatServiceClient in Frameworks */ = {isa = PBXBuildFile; productRef = B9CC23F82CF4B4A800C7A015 /* CatServiceClient */; };
+		B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5D22CF6273E00B23C15 /* BackpackDI */; };
+		B9CFD5DC2CF627A700B23C15 /* CatClientAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DB2CF627A700B23C15 /* CatClientAPI */; };
+		B9CFD5DE2CF627A700B23C15 /* CatClientImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DD2CF627A700B23C15 /* CatClientImpl */; };
+		B9CFD5EF2CF62C5A00B23C15 /* BreedsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */; };
+		B9CFD5F12CF62C5A00B23C15 /* BreedsImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,7 +32,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9CC23F92CF4B4A800C7A015 /* CatServiceClient in Frameworks */,
+				B9CFD5F12CF62C5A00B23C15 /* BreedsImpl in Frameworks */,
+				B9CFD5EF2CF62C5A00B23C15 /* BreedsAPI in Frameworks */,
+				B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */,
+				B9CFD5DE2CF627A700B23C15 /* CatClientImpl in Frameworks */,
+				B9CFD5DC2CF627A700B23C15 /* CatClientAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +48,7 @@
 			children = (
 				B9E863D12CF4CFE30042C91C /* Modules */,
 				B9CC23E62CF4A53100C7A015 /* Whiskerpedia */,
+				B9CFD5DA2CF627A700B23C15 /* Frameworks */,
 				B9CC23E52CF4A53100C7A015 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,6 +59,13 @@
 				B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B9CFD5DA2CF627A700B23C15 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B9E863D12CF4CFE30042C91C /* Modules */ = {
@@ -81,6 +97,11 @@
 			name = Whiskerpedia;
 			packageProductDependencies = (
 				B9CC23F82CF4B4A800C7A015 /* CatServiceClient */,
+				B9CFD5D22CF6273E00B23C15 /* BackpackDI */,
+				B9CFD5DB2CF627A700B23C15 /* CatClientAPI */,
+				B9CFD5DD2CF627A700B23C15 /* CatClientImpl */,
+				B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */,
+				B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */,
 			);
 			productName = Whiskerpedia;
 			productReference = B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */;
@@ -111,6 +132,7 @@
 			mainGroup = B9CC23DB2CF4A53000C7A015;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				B9CFD5D12CF6273E00B23C15 /* XCRemoteSwiftPackageReference "BackpackDI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9CC23E52CF4A53100C7A015 /* Products */;
@@ -341,10 +363,42 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		B9CFD5D12CF6273E00B23C15 /* XCRemoteSwiftPackageReference "BackpackDI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hugobgranja/BackpackDI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		B9CC23F82CF4B4A800C7A015 /* CatServiceClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CatServiceClient;
+		};
+		B9CFD5D22CF6273E00B23C15 /* BackpackDI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9CFD5D12CF6273E00B23C15 /* XCRemoteSwiftPackageReference "BackpackDI" */;
+			productName = BackpackDI;
+		};
+		B9CFD5DB2CF627A700B23C15 /* CatClientAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CatClientAPI;
+		};
+		B9CFD5DD2CF627A700B23C15 /* CatClientImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CatClientImpl;
+		};
+		B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BreedsAPI;
+		};
+		B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BreedsImpl;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

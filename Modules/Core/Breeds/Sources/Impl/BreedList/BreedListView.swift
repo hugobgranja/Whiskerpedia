@@ -1,7 +1,7 @@
 import SwiftUI
 import BreedsMocks
 
-struct BreedListView: View {
+public struct BreedListView: View {
     private let viewModel: BreedListViewModel
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -9,11 +9,11 @@ struct BreedListView: View {
         GridItem(.flexible())
     ]
 
-    init(viewModel: BreedListViewModel) {
+    public init(viewModel: BreedListViewModel) {
         self.viewModel = viewModel
     }
 
-    var body: some View {
+    public var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 24) {
                 ForEach(viewModel.breeds) { breed in
