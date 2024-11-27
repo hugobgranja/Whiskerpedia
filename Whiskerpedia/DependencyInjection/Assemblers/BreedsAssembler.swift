@@ -12,9 +12,5 @@ public final class BreedsAssembler {
                 baseURL: r.resolve(AppConfig.self).catServiceBaseUrl
             )
         }
-
-        container.autoRegister(BreedListViewModel.self, using: BreedListViewModel.init)
-
-        container.autoRegister(BreedListView.self, using: BreedListView.init)
     }
 }

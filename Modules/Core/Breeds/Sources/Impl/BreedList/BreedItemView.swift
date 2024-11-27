@@ -1,5 +1,5 @@
-import BreedsAPI
 import SwiftUI
+import BreedsAPI
 import Kingfisher
 
 struct BreedItemView: View {
@@ -15,9 +15,7 @@ struct BreedItemView: View {
         VStack(spacing: 8) {
             KFImage(imageUrl)
                 .placeholder {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .foregroundStyle(.gray)
+                    Color.gray.opacity(0.3)
                 }
                 .resizable()
                 .cornerRadius(8)

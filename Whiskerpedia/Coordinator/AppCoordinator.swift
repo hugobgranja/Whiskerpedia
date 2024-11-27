@@ -1,26 +1,24 @@
+import BreedsAPI
 import BreedsImpl
 import SwiftUI
 
 @MainActor
 final class AppCoordinator {
     enum Destination: Hashable {
-        case placeholder
+        case breedDetail(breed: Breed)
     }
 
     @Bindable var navPath = ObservableNavigationPath()
-    private let breedsListViewFactory: () -> BreedListView
+    private let factory: AppFactory
 
-    init(
-        breedsListViewFactory: @escaping () -> BreedListView
-    ) {
-        self.breedsListViewFactory = breedsListViewFactory
+    init(factory: AppFactory) {
+        self.factory = factory
     }
 
+    @ViewBuilder
     func getInitialView() -> some View {
-        let initialView = breedsListViewFactory()
-
-        return NavigationStack(path: $navPath.path) {
-            initialView
+        NavigationStack(path: $navPath.path) {
+            factory.makeBreedListView(navDelegate: self)
                 .navigationDestination(
                     for: Destination.self,
                     destination: destinationView(for:)
@@ -30,7 +28,8 @@ final class AppCoordinator {
 
     private func destinationView(for destination: Destination) -> some View {
         switch destination {
-        case .placeholder: EmptyView()
+        case .breedDetail(let breed):
+            factory.makeBreedDetailView(breed: breed)
         }
     }
 
@@ -39,14 +38,8 @@ final class AppCoordinator {
     }
 }
 
-@MainActor
-@Observable
-public final class ObservableNavigationPath {
-    public var path = NavigationPath()
-
-    public init() {}
-
-    public func append<V>(_ value: V) where V: Hashable {
-        path.append(value)
+extension AppCoordinator: BreedListNavDelegate {
+    func goToDetail(breed: Breed) {
+        go(to: .breedDetail(breed: breed))
     }
 }

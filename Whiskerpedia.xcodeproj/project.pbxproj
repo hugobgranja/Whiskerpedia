@@ -96,7 +96,6 @@
 			);
 			name = Whiskerpedia;
 			packageProductDependencies = (
-				B9CC23F82CF4B4A800C7A015 /* CatServiceClient */,
 				B9CFD5D22CF6273E00B23C15 /* BackpackDI */,
 				B9CFD5DB2CF627A700B23C15 /* CatClientAPI */,
 				B9CFD5DD2CF627A700B23C15 /* CatClientImpl */,
@@ -375,10 +374,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B9CC23F82CF4B4A800C7A015 /* CatServiceClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CatServiceClient;
-		};
 		B9CFD5D22CF6273E00B23C15 /* BackpackDI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9CFD5D12CF6273E00B23C15 /* XCRemoteSwiftPackageReference "BackpackDI" */;

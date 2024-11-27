@@ -1,13 +1,11 @@
 import BackpackDI
+import BreedsAPI
 import BreedsImpl
 
 @MainActor
 public final class AppAssembler {
     static func assemble(_ container: Container) {
-        container.register(AppCoordinator.self) { r in
-            AppCoordinator(breedsListViewFactory: {
-                r.resolve(BreedListView.self)
-            })
-        }
+        container.autoRegister(AppFactory.self, using: AppFactory.init)
+        container.autoRegister(AppCoordinator.self, using: AppCoordinator.init)
     }
 }

@@ -3,14 +3,20 @@ import BreedsMocks
 
 public struct BreedListView: View {
     private let viewModel: BreedListViewModel
+    private weak var navDelegate: (any BreedListNavDelegate)?
+
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
 
-    public init(viewModel: BreedListViewModel) {
+    public init(
+        viewModel: BreedListViewModel,
+        navDelegate: (any BreedListNavDelegate)?
+    ) {
         self.viewModel = viewModel
+        self.navDelegate = navDelegate
     }
 
     public var body: some View {
@@ -21,7 +27,9 @@ public struct BreedListView: View {
                         imageUrl: breed.image?.url,
                         name: breed.name
                     )
-                    .aspectRatio(3 / 4, contentMode: .fit)
+                    .onTapGesture {
+                        navDelegate?.goToDetail(breed: breed)
+                    }
                 }
             }
             .padding(.horizontal)
@@ -34,6 +42,7 @@ public struct BreedListView: View {
     BreedListView(
         viewModel: BreedListViewModel(
             breedRepository: BreedRepositoryMock()
-        )
+        ),
+        navDelegate: nil
     )
 }
