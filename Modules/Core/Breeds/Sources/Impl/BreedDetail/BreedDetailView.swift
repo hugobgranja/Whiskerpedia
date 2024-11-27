@@ -3,16 +3,16 @@ import BreedsAPI
 import Kingfisher
 
 public struct BreedDetailView: View {
-    private let viewModel: BreedDetailViewModel
+    private let model: BreedDetailModel
 
-    public init(viewModel: BreedDetailViewModel) {
-        self.viewModel = viewModel
+    public init(model: BreedDetailModel) {
+        self.model = model
     }
 
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                KFImage(viewModel.imageUrl)
+                KFImage(model.imageUrl)
                     .placeholder {
                         Color.gray.opacity(0.3)
                             .frame(height: 300)
@@ -22,7 +22,7 @@ public struct BreedDetailView: View {
                     .cornerRadius(8)
 
                 // Breed Name
-                Text(viewModel.breed.name)
+                Text(model.breed.name)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding(.bottom, 8)
@@ -31,7 +31,7 @@ public struct BreedDetailView: View {
                 HStack {
                     Text("Origin:")
                         .font(.headline)
-                    Text(viewModel.breed.origin)
+                    Text(model.breed.origin)
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
@@ -40,7 +40,7 @@ public struct BreedDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Temperament:")
                         .font(.headline)
-                    Text(viewModel.breed.temperament)
+                    Text(model.breed.temperament)
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
@@ -49,20 +49,20 @@ public struct BreedDetailView: View {
                 VStack(alignment: .leading) {
                     Text("Description:")
                         .font(.headline)
-                    Text(viewModel.breed.description)
+                    Text(model.breed.description)
                         .font(.body)
                         .foregroundColor(.secondary)
                 }
             }
             .padding()
         }
-        .navigationTitle(viewModel.breed.name)
+        .navigationTitle(model.breed.name)
     }
 }
 
 #Preview {
     BreedDetailView(
-        viewModel: BreedDetailViewModel(
+        model: BreedDetailModel(
             breed: Breed(
                 id: "1",
                 name: "Abyssinian",

@@ -1,5 +1,6 @@
 import Foundation
 
 public protocol BreedRepository: Sendable {
-    func getBreeds(limit: Int, page: Int) async throws -> BreedsPage
+    func get(limit: Int, page: Int) async throws -> BreedsPage
+    func search(query: String) async throws -> [Breed]
 }

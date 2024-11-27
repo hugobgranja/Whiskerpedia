@@ -1,8 +1,7 @@
 import Foundation
 import BreedsAPI
 
-@MainActor
-public final class BreedDetailViewModel {
+public struct BreedDetailModel {
     let breed: Breed
     let imageUrl: URL?
 

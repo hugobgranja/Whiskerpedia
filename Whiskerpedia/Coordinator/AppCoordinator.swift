@@ -18,7 +18,7 @@ final class AppCoordinator {
     @ViewBuilder
     func getInitialView() -> some View {
         NavigationStack(path: $navPath.path) {
-            factory.makeBreedListView(navDelegate: self)
+            factory.makeBreedRootView(navDelegate: self)
                 .navigationDestination(
                     for: Destination.self,
                     destination: destinationView(for:)
@@ -38,7 +38,7 @@ final class AppCoordinator {
     }
 }
 
-extension AppCoordinator: BreedListNavDelegate {
+extension AppCoordinator: BreedNavDelegate {
     func goToDetail(breed: Breed) {
         go(to: .breedDetail(breed: breed))
     }

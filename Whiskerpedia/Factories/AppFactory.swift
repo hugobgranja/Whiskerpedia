@@ -5,25 +5,22 @@ import BreedsImpl
 @MainActor
 final class AppFactory {
     private let breedRepository: BreedRepository
-    private weak var breedListViewModel: BreedListViewModel?
-    private weak var breedDetailViewModel: BreedDetailViewModel?
+    private weak var breedRootViewModel: BreedRootViewModel?
 
     init(breedRepository: BreedRepository) {
         self.breedRepository = breedRepository
     }
 
-    func makeBreedListView(navDelegate: BreedListNavDelegate?) -> BreedListView {
-        let viewModel = breedListViewModel ?? BreedListViewModel(breedRepository: breedRepository)
-        self.breedListViewModel = viewModel
-        return BreedListView(
+    func makeBreedRootView(navDelegate: BreedNavDelegate?) -> BreedRootView {
+        let viewModel = breedRootViewModel ?? BreedRootViewModel(breedRepository: breedRepository)
+        self.breedRootViewModel = viewModel
+        return BreedRootView(
             viewModel: viewModel,
             navDelegate: navDelegate
         )
     }
 
     func makeBreedDetailView(breed: Breed) -> BreedDetailView {
-        let viewModel = breedDetailViewModel ?? BreedDetailViewModel(breed: breed)
-        self.breedDetailViewModel = viewModel
-        return BreedDetailView(viewModel: viewModel)
+        return BreedDetailView(model: BreedDetailModel(breed: breed))
     }
 }

@@ -5,6 +5,7 @@ import CatClientAPI
 public final class BreedRepositoryImpl: BreedRepository {
     enum Constants {
         static let breedsPath = "v1/breeds"
+        static let searchPath = "v1/breeds/search"
         static let totalItemCountHeaderKey = "pagination-count"
     }
 
@@ -19,7 +20,7 @@ public final class BreedRepositoryImpl: BreedRepository {
         self.baseURL = baseURL
     }
 
-    public func getBreeds(limit: Int, page: Int) async throws -> BreedsPage {
+    public func get(limit: Int, page: Int) async throws -> BreedsPage {
         let queryItems = [
             URLQueryItem(name: "limit", value: String(limit)),
             URLQueryItem(name: "page", value: String(page))
@@ -42,5 +43,20 @@ public final class BreedRepositoryImpl: BreedRepository {
             breeds: breeds,
             totalItemCount: totalItemCount
         )
+    }
+
+    public func search(query: String) async throws -> [Breed] {
+        let queryItems = [URLQueryItem(name: "q", value: query)]
+
+        guard
+            let url = URL(string: "\(baseURL)\(Constants.searchPath)")?
+                .appending(queryItems: queryItems)
+        else {
+            throw URLError(.badURL)
+        }
+
+        let response = try await client.request(url: url, method: .get)
+
+        return try response.decode([Breed].self)
     }
 }

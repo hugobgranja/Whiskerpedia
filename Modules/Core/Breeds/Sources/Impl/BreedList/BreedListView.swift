@@ -1,9 +1,10 @@
 import SwiftUI
+import BreedsAPI
 import BreedsMocks
 
 public struct BreedListView: View {
-    private let viewModel: BreedListViewModel
-    private weak var navDelegate: (any BreedListNavDelegate)?
+    private let breeds: [Breed]
+    private weak var navDelegate: (any BreedNavDelegate)?
 
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -12,17 +13,17 @@ public struct BreedListView: View {
     ]
 
     public init(
-        viewModel: BreedListViewModel,
-        navDelegate: (any BreedListNavDelegate)?
+        breeds: [Breed],
+        navDelegate: (any BreedNavDelegate)?
     ) {
-        self.viewModel = viewModel
+        self.breeds = breeds
         self.navDelegate = navDelegate
     }
 
     public var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 24) {
-                ForEach(viewModel.breeds) { breed in
+                ForEach(breeds) { breed in
                     BreedItemView(
                         imageUrl: breed.image?.url,
                         name: breed.name
@@ -34,15 +35,12 @@ public struct BreedListView: View {
             }
             .padding(.horizontal)
         }
-        .task(viewModel.getBreeds)
     }
 }
 
 #Preview {
     BreedListView(
-        viewModel: BreedListViewModel(
-            breedRepository: BreedRepositoryMock()
-        ),
+        breeds: BreedRepositoryMock().breeds,
         navDelegate: nil
     )
 }

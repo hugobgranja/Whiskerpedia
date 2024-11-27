@@ -2,6 +2,6 @@ import Foundation
 import BreedsAPI
 
 @MainActor
-public protocol BreedListNavDelegate: AnyObject {
+public protocol BreedNavDelegate: AnyObject {
     func goToDetail(breed: Breed)
 }
