@@ -3,21 +3,25 @@ import BreedAPI
 import BreedImpl
 import CatClientAPI
 import DatabaseAPI
+import DatabaseImpl
+import SwiftData
 
 @MainActor
-public final class BreedsAssembler {
+public final class BreedAssembler {
     static func assemble(_ container: Container) {
-        container.autoRegister(
-            BreedFactory.self,
-            using: BreedFactoryImpl.init
-        )
+        container.autoRegister(BreedServiceMapper.self, using: BreedMapperImpl.init)
 
         container.register(BreedRepository.self) { r in
-            BreedRepositoryImpl(
+            let database = DatabaseImpl(
+                container: container.resolve(ModelContainer.self),
+                mapper: BreedMapperImpl()
+            )
+
+            return BreedRepositoryImpl(
                 client: r.resolve(CatClient.self),
                 baseURL: r.resolve(AppConfig.self).catServiceBaseUrl,
-                factory: r.resolve(BreedFactory.self),
-                database: r.resolve(Database.self)
+                mapper: r.resolve(BreedServiceMapper.self),
+                database: database
             )
         }
     }

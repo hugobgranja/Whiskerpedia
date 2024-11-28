@@ -11,7 +11,7 @@ class AppContainer {
 
     func assemble() {
         AppAssembler.assemble(container)
-        BreedsAssembler.assemble(container)
+        BreedAssembler.assemble(container)
         ConfigsAssembler.assemble(container)
         CatClientAssembler.assemble(container)
         DatabaseAssembler.assemble(container)

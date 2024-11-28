@@ -2,34 +2,34 @@ import Foundation
 import SwiftData
 
 @MainActor
-public protocol Database: Sendable {
-    func fetch<M: PersistentModel>(
-        type: M.Type,
+public protocol Database<M, S>: Sendable {
+    associatedtype M: PersistentModel
+    associatedtype S: Sendable
+
+    func fetch(
         matching predicate: Predicate<M>?,
         sortedBy sortDescriptors: [SortDescriptor<M>]
-    ) throws -> [M]
+    ) throws -> [S]
 
-    func add<M: PersistentModel>(_ object: M) throws
-    func delete<M: PersistentModel>(_ object: M) throws
+    func add(_ object: S)
+    func delete(matching predicate: Predicate<M>) throws
     func save() throws
 }
 
 public extension Database {
-    func fetchAll<M: PersistentModel>(type: M.Type) throws -> [M] {
-        return try fetch(type: type, matching: nil, sortedBy: [])
+    func fetchAll() throws -> [S] {
+        return try fetch(matching: nil, sortedBy: [])
     }
 
-    func fetchAll<M: PersistentModel>(
-        type: M.Type,
+    func fetchAll(
         sortedBy sortDescriptors: [SortDescriptor<M>]
-    ) throws -> [M] {
-        return try fetch(type: type, matching: nil, sortedBy: sortDescriptors)
+    ) throws -> [S] {
+        return try fetch(matching: nil, sortedBy: sortDescriptors)
     }
 
-    func fetch<M: PersistentModel>(
-        type: M.Type,
+    func fetch(
         matching predicate: Predicate<M>
-    ) throws -> [M] {
-        return try fetch(type: type, matching: predicate, sortedBy: [])
+    ) throws -> [S] {
+        return try fetch(matching: predicate, sortedBy: [])
     }
 }

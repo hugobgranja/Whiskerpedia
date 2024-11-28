@@ -12,18 +12,18 @@ public final class BreedRepositoryImpl: BreedRepository {
 
     private let client: CatClient
     private let baseURL: String
-    private let factory: BreedFactory
-    private let database: Database
+    private let mapper: BreedServiceMapper
+    private let database: any Database<BreedEntity, Breed>
 
     public init(
         client: CatClient,
         baseURL: String,
-        factory: BreedFactory,
-        database: Database
+        mapper: BreedServiceMapper,
+        database: any Database<BreedEntity, Breed>
     ) {
         self.client = client
         self.baseURL = baseURL
-        self.factory = factory
+        self.mapper = mapper
         self.database = database
     }
 
@@ -42,7 +42,7 @@ public final class BreedRepositoryImpl: BreedRepository {
 
         let response = try await client.request(url: url, method: .get)
 
-        let breeds = try response.decode([BreedDTO].self).map { factory.map(dto: $0) }
+        let breeds = try response.decode([BreedDTO].self).map { mapper.map(dto: $0) }
         let paginationCount = response.headers?[Constants.totalItemCountHeaderKey] as? String
         let totalItemCount = paginationCount.flatMap { Int($0) } ?? 0
 
@@ -64,6 +64,6 @@ public final class BreedRepositoryImpl: BreedRepository {
 
         let response = try await client.request(url: url, method: .get)
 
-        return try response.decode([BreedDTO].self).map { factory.map(dto: $0) }
+        return try response.decode([BreedDTO].self).map { mapper.map(dto: $0) }
     }
 }
