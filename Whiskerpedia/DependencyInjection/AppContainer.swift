@@ -10,10 +10,11 @@ class AppContainer {
     }
 
     func assemble() {
+        AppAssembler.assemble(container)
         BreedsAssembler.assemble(container)
         ConfigsAssembler.assemble(container)
         CatClientAssembler.assemble(container)
-        AppAssembler.assemble(container)
+        DatabaseAssembler.assemble(container)
     }
 
     func resolve<T>(_ type: T.Type) -> T {

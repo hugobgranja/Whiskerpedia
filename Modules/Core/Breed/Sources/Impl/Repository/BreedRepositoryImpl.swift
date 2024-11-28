@@ -1,6 +1,7 @@
 import Foundation
 import BreedAPI
 import CatClientAPI
+import DatabaseAPI
 
 public final class BreedRepositoryImpl: BreedRepository {
     enum Constants {
@@ -12,15 +13,18 @@ public final class BreedRepositoryImpl: BreedRepository {
     private let client: CatClient
     private let baseURL: String
     private let factory: BreedFactory
+    private let database: Database
 
     public init(
         client: CatClient,
         baseURL: String,
-        factory: BreedFactory
+        factory: BreedFactory,
+        database: Database
     ) {
         self.client = client
         self.baseURL = baseURL
         self.factory = factory
+        self.database = database
     }
 
     public func get(limit: Int, page: Int) async throws -> BreedsPage {

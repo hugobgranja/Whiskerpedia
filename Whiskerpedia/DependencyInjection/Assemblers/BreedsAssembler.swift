@@ -1,7 +1,8 @@
 import BackpackDI
-import CatClientAPI
 import BreedAPI
 import BreedImpl
+import CatClientAPI
+import DatabaseAPI
 
 @MainActor
 public final class BreedsAssembler {
@@ -15,7 +16,8 @@ public final class BreedsAssembler {
             BreedRepositoryImpl(
                 client: r.resolve(CatClient.self),
                 baseURL: r.resolve(AppConfig.self).catServiceBaseUrl,
-                factory: r.resolve(BreedFactory.self)
+                factory: r.resolve(BreedFactory.self),
+                database: r.resolve(Database.self)
             )
         }
     }

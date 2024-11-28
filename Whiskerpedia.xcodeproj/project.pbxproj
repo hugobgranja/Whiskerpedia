@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5D22CF6273E00B23C15 /* BackpackDI */; };
+		B9D280DD2CF8DE7E00EAA0B5 /* CatClientAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DB2CF627A700B23C15 /* CatClientAPI */; };
+		B9D280DE2CF8DE7E00EAA0B5 /* CatClientImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DD2CF627A700B23C15 /* CatClientImpl */; };
+		B9D280DF2CF8DE7E00EAA0B5 /* BreedAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B905B7DD2CF8DDE200E8A8FF /* BreedAPI */; };
+		B9D280E02CF8DE7E00EAA0B5 /* BreedImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B905B7DF2CF8DDE200E8A8FF /* BreedImpl */; };
+		B9D281322CF8E03C00EAA0B5 /* DatabaseAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9D281312CF8E03C00EAA0B5 /* DatabaseAPI */; };
+		B9D281342CF8E03C00EAA0B5 /* DatabaseImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9D281332CF8E03C00EAA0B5 /* DatabaseImpl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +34,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9D280E02CF8DE7E00EAA0B5 /* BreedImpl in Frameworks */,
+				B9D280DF2CF8DE7E00EAA0B5 /* BreedAPI in Frameworks */,
+				B9D281322CF8E03C00EAA0B5 /* DatabaseAPI in Frameworks */,
+				B9D280DE2CF8DE7E00EAA0B5 /* CatClientImpl in Frameworks */,
+				B9D280DD2CF8DE7E00EAA0B5 /* CatClientAPI in Frameworks */,
+				B9D281342CF8E03C00EAA0B5 /* DatabaseImpl in Frameworks */,
 				B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +105,8 @@
 				B9CFD5DD2CF627A700B23C15 /* CatClientImpl */,
 				B905B7DD2CF8DDE200E8A8FF /* BreedAPI */,
 				B905B7DF2CF8DDE200E8A8FF /* BreedImpl */,
+				B9D281312CF8E03C00EAA0B5 /* DatabaseAPI */,
+				B9D281332CF8E03C00EAA0B5 /* DatabaseImpl */,
 			);
 			productName = Whiskerpedia;
 			productReference = B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */;
@@ -386,6 +400,14 @@
 		B9CFD5DD2CF627A700B23C15 /* CatClientImpl */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CatClientImpl;
+		};
+		B9D281312CF8E03C00EAA0B5 /* DatabaseAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DatabaseAPI;
+		};
+		B9D281332CF8E03C00EAA0B5 /* DatabaseImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DatabaseImpl;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

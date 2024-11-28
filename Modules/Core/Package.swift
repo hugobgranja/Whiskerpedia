@@ -22,7 +22,8 @@ package.targets.append(contentsOf: [
             "BreedAPI",
             "BreedMocks",
             "CatClientAPI",
-            "Kingfisher"
+            "DatabaseAPI",
+            "Kingfisher",
         ],
         path: "Breed/Sources/Impl"
     ),

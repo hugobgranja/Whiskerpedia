@@ -2,7 +2,7 @@ import Foundation
 import SwiftData
 
 @MainActor
-public protocol Database {
+public protocol Database: Sendable {
     func fetch<M: PersistentModel>(
         type: M.Type,
         matching predicate: Predicate<M>?,
