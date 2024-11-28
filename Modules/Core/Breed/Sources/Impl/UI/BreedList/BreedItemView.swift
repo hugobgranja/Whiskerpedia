@@ -1,5 +1,5 @@
 import SwiftUI
-import BreedsAPI
+import BreedAPI
 import Kingfisher
 
 struct BreedItemView: View {

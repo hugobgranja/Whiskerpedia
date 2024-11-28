@@ -1,6 +1,6 @@
 import BackpackDI
-import BreedsAPI
-import BreedsImpl
+import BreedAPI
+import BreedImpl
 
 @MainActor
 public final class AppAssembler {

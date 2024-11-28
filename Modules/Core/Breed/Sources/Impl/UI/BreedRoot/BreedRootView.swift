@@ -1,6 +1,6 @@
 import SwiftUI
-import BreedsAPI
-import BreedsMocks
+import BreedAPI
+import BreedMocks
 
 public struct BreedRootView: View {
     private var viewModel: BreedRootViewModel

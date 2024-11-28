@@ -1,5 +1,5 @@
 import Foundation
-import BreedsAPI
+import BreedAPI
 
 public struct BreedDetailModel {
     let breed: Breed

@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5D22CF6273E00B23C15 /* BackpackDI */; };
-		B9CFD5DC2CF627A700B23C15 /* CatClientAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DB2CF627A700B23C15 /* CatClientAPI */; };
-		B9CFD5DE2CF627A700B23C15 /* CatClientImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DD2CF627A700B23C15 /* CatClientImpl */; };
-		B9CFD5EF2CF62C5A00B23C15 /* BreedsAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */; };
-		B9CFD5F12CF62C5A00B23C15 /* BreedsImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,11 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B9CFD5F12CF62C5A00B23C15 /* BreedsImpl in Frameworks */,
-				B9CFD5EF2CF62C5A00B23C15 /* BreedsAPI in Frameworks */,
 				B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */,
-				B9CFD5DE2CF627A700B23C15 /* CatClientImpl in Frameworks */,
-				B9CFD5DC2CF627A700B23C15 /* CatClientAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,8 +91,8 @@
 				B9CFD5D22CF6273E00B23C15 /* BackpackDI */,
 				B9CFD5DB2CF627A700B23C15 /* CatClientAPI */,
 				B9CFD5DD2CF627A700B23C15 /* CatClientImpl */,
-				B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */,
-				B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */,
+				B905B7DD2CF8DDE200E8A8FF /* BreedAPI */,
+				B905B7DF2CF8DDE200E8A8FF /* BreedImpl */,
 			);
 			productName = Whiskerpedia;
 			productReference = B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */;
@@ -374,6 +366,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B905B7DD2CF8DDE200E8A8FF /* BreedAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BreedAPI;
+		};
+		B905B7DF2CF8DDE200E8A8FF /* BreedImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BreedImpl;
+		};
 		B9CFD5D22CF6273E00B23C15 /* BackpackDI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9CFD5D12CF6273E00B23C15 /* XCRemoteSwiftPackageReference "BackpackDI" */;
@@ -386,14 +386,6 @@
 		B9CFD5DD2CF627A700B23C15 /* CatClientImpl */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CatClientImpl;
-		};
-		B9CFD5EE2CF62C5A00B23C15 /* BreedsAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BreedsAPI;
-		};
-		B9CFD5F02CF62C5A00B23C15 /* BreedsImpl */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BreedsImpl;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

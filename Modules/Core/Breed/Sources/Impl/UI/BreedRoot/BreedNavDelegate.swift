@@ -1,5 +1,5 @@
 import Foundation
-import BreedsAPI
+import BreedAPI
 
 @MainActor
 public protocol BreedNavDelegate: AnyObject {

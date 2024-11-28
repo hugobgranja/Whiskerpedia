@@ -1,6 +1,6 @@
 import SwiftUI
 import SwiftData
-import BreedsImpl
+import BreedImpl
 
 @main
 struct WhiskerpediaApp: App {

@@ -1,5 +1,5 @@
 import Foundation
-import BreedsAPI
+import BreedAPI
 
 public final class BreedRepositoryMock: BreedRepository {
     public let breeds = [

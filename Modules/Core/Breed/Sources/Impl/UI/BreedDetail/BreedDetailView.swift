@@ -1,6 +1,6 @@
 import SwiftUI
-import BreedsAPI
-import BreedsMocks
+import BreedAPI
+import BreedMocks
 import Kingfisher
 
 public struct BreedDetailView: View {

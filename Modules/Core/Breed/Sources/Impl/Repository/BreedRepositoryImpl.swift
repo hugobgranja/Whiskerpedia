@@ -1,5 +1,5 @@
 import Foundation
-import BreedsAPI
+import BreedAPI
 import CatClientAPI
 
 public final class BreedRepositoryImpl: BreedRepository {

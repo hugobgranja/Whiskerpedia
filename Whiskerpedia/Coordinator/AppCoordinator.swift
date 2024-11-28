@@ -1,5 +1,5 @@
-import BreedsAPI
-import BreedsImpl
+import BreedAPI
+import BreedImpl
 import SwiftUI
 
 @MainActor

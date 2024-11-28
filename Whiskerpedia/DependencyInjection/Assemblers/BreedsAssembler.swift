@@ -1,7 +1,7 @@
 import BackpackDI
 import CatClientAPI
-import BreedsAPI
-import BreedsImpl
+import BreedAPI
+import BreedImpl
 
 @MainActor
 public final class BreedsAssembler {

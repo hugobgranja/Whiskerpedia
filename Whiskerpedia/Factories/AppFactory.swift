@@ -1,6 +1,6 @@
 import Foundation
-import BreedsAPI
-import BreedsImpl
+import BreedAPI
+import BreedImpl
 
 @MainActor
 final class AppFactory {

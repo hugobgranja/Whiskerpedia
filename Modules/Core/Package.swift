@@ -10,37 +10,37 @@ let package = Package(
     ]
 )
 
-// MARK: Breeds
+// MARK: Breed
 package.targets.append(contentsOf: [
     .target(
-        name: "BreedsAPI",
-        path: "Breeds/Sources/API"
+        name: "BreedAPI",
+        path: "Breed/Sources/API"
     ),
     .target(
-        name: "BreedsImpl",
+        name: "BreedImpl",
         dependencies: [
-            "BreedsAPI",
-            "BreedsMocks",
+            "BreedAPI",
+            "BreedMocks",
             "CatClientAPI",
             "Kingfisher"
         ],
-        path: "Breeds/Sources/Impl"
+        path: "Breed/Sources/Impl"
     ),
     .target(
-        name: "BreedsMocks",
-        dependencies: ["BreedsAPI"],
-        path: "Breeds/Mocks"
+        name: "BreedMocks",
+        dependencies: ["BreedAPI"],
+        path: "Breed/Mocks"
     ),
 ])
 
 package.products.append(contentsOf: [
     .library(
-        name: "BreedsAPI",
-        targets: ["BreedsAPI"]
+        name: "BreedAPI",
+        targets: ["BreedAPI"]
     ),
     .library(
-        name: "BreedsImpl",
-        targets: ["BreedsImpl"]
+        name: "BreedImpl",
+        targets: ["BreedImpl"]
     )
 ])
 
