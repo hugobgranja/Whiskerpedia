@@ -25,7 +25,7 @@ public struct BreedListView: View {
             LazyVGrid(columns: columns, spacing: 24) {
                 ForEach(breeds) { breed in
                     BreedItemView(
-                        imageUrl: breed.image?.url,
+                        imageUrl: breed.imageUrl,
                         name: breed.name
                     )
                     .onTapGesture {

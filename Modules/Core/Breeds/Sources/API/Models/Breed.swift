@@ -1,12 +1,13 @@
 import Foundation
 
-public struct Breed: Identifiable, Decodable, Sendable, Equatable, Hashable {
+public struct Breed: Identifiable, Sendable, Equatable, Hashable {
     public let id: String
     public let name: String
     public let origin: String
     public let temperament: String
     public let description: String
-    public let image: BreedImage?
+    public let imageUrl: String?
+    public let isFavorite: Bool
 
     public init(
         id: String,
@@ -14,14 +15,16 @@ public struct Breed: Identifiable, Decodable, Sendable, Equatable, Hashable {
         origin: String,
         temperament: String,
         description: String,
-        image: BreedImage?
+        imageUrl: String?,
+        isFavorite: Bool
     ) {
         self.id = id
         self.name = name
         self.origin = origin
         self.temperament = temperament
         self.description = description
-        self.image = image
+        self.imageUrl = imageUrl
+        self.isFavorite = isFavorite
     }
 
     public static func == (lhs: Breed, rhs: Breed) -> Bool {

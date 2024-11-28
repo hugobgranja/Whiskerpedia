@@ -11,13 +11,16 @@ public final class BreedRepositoryImpl: BreedRepository {
 
     private let client: CatClient
     private let baseURL: String
+    private let factory: BreedFactory
 
     public init(
         client: CatClient,
-        baseURL: String
+        baseURL: String,
+        factory: BreedFactory
     ) {
         self.client = client
         self.baseURL = baseURL
+        self.factory = factory
     }
 
     public func get(limit: Int, page: Int) async throws -> BreedsPage {
@@ -35,7 +38,7 @@ public final class BreedRepositoryImpl: BreedRepository {
 
         let response = try await client.request(url: url, method: .get)
 
-        let breeds = try response.decode([Breed].self)
+        let breeds = try response.decode([BreedDTO].self).map { factory.map(dto: $0) }
         let paginationCount = response.headers?[Constants.totalItemCountHeaderKey] as? String
         let totalItemCount = paginationCount.flatMap { Int($0) } ?? 0
 
@@ -57,6 +60,6 @@ public final class BreedRepositoryImpl: BreedRepository {
 
         let response = try await client.request(url: url, method: .get)
 
-        return try response.decode([Breed].self)
+        return try response.decode([BreedDTO].self).map { factory.map(dto: $0) }
     }
 }

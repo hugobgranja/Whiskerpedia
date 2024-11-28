@@ -1,5 +1,6 @@
 import SwiftUI
 import BreedsAPI
+import BreedsMocks
 import Kingfisher
 
 public struct BreedDetailView: View {
@@ -56,14 +57,7 @@ public struct BreedDetailView: View {
 #Preview {
     BreedDetailView(
         model: BreedDetailModel(
-            breed: Breed(
-                id: "1",
-                name: "Abyssinian",
-                origin: "Ethiopia",
-                temperament: "Active, Energetic, Social, Playful, Intelligent",
-                description: "Abyssinians are known for their curiosity and high energy levels, making them one of the most active cat breeds.",
-                image: BreedImage(url: "https://cdn2.thecatapi.com/images/ozEvzdVM-.jpg")
-            )
+            breed: BreedRepositoryMock().breeds[0]
         )
     )
 }

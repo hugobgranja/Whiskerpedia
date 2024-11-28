@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "4A401C6B-E5B2-496F-8501-CD4691B5B3F2",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "DatabaseTests",
+        "name" : "DatabaseTests"
+      }
+    }
+  ],
+  "version" : 1
+}
