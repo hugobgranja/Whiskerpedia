@@ -1,18 +1,29 @@
 import Foundation
 import BreedsAPI
+import Combine
 
 @Observable
 @MainActor
 public final class BreedRootViewModel {
-    private let breedRepository: BreedRepository
-    private var paginatedBreeds: [Breed] = []
-    private var searchBreeds: [Breed] = []
-
-    var breeds: [Breed] {
-        query.isEmpty ? paginatedBreeds : searchBreeds
+    enum Constants {
+        static let paginationLimit = 20
     }
 
-    var query: String = ""
+    enum PresentationMode {
+        case list
+        case search
+    }
+
+    private let breedRepository: BreedRepository
+    private(set) var paginatedBreeds: [Breed] = []
+    private(set) var searchBreeds: [Breed] = []
+    private var currentPage: Int = 0
+    private(set) var isNextPageAvailable: Bool = true
+    private(set) var isLoading: Bool = false
+
+    var presentationMode: PresentationMode {
+        searchBreeds.isEmpty ? .list : .search
+    }
 
     public init(
         breedRepository: BreedRepository
@@ -20,20 +31,39 @@ public final class BreedRootViewModel {
         self.breedRepository = breedRepository
     }
 
-    func getBreeds() async {
+    func getPage() async {
+        guard isNextPageAvailable else { return }
+
+        isLoading = true
+
         do {
-            self.paginatedBreeds = try await breedRepository.get(limit: 10, page: 0).breeds
+            let response = try await breedRepository.get(
+                limit: Constants.paginationLimit,
+                page: currentPage
+            )
+
+            currentPage += 1
+
+            if paginatedBreeds.count >= response.totalItemCount {
+                isNextPageAvailable = false
+            }
+
+            self.paginatedBreeds += response.breeds
         }
         catch {
             // TODO: Handle errors.
         }
+
+        isLoading = false
     }
 
-    func search() async {
+    func search(query: String) async {
         guard !query.isEmpty else {
             searchBreeds = []
             return
         }
+
+        isLoading = true
 
         do {
             self.searchBreeds = try await breedRepository.search(query: query)
@@ -41,5 +71,7 @@ public final class BreedRootViewModel {
         catch {
             // TODO: Handle errors.
         }
+
+        isLoading = false
     }
 }

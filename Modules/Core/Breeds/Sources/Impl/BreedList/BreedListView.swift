@@ -35,6 +35,7 @@ public struct BreedListView: View {
             }
             .padding(.horizontal)
         }
+        .navigationTitle("Whiskerpedia")
     }
 }
 

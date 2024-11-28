@@ -11,47 +11,40 @@ public struct BreedDetailView: View {
 
     public var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(spacing: 20) {
                 KFImage(model.imageUrl)
                     .placeholder {
                         Color.gray.opacity(0.3)
-                            .frame(height: 300)
                     }
                     .resizable()
                     .scaledToFill()
+                    .frame(maxHeight: 300)
                     .cornerRadius(8)
 
-                // Breed Name
-                Text(model.breed.name)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 8)
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack {
+                        Text("Origin:")
+                            .font(.headline)
+                        Text(model.breed.origin)
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                    }
 
-                // Origin
-                HStack {
-                    Text("Origin:")
-                        .font(.headline)
-                    Text(model.breed.origin)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                }
+                    VStack(alignment: .leading) {
+                        Text("Temperament:")
+                            .font(.headline)
+                        Text(model.breed.temperament)
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                    }
 
-                // Temperament
-                VStack(alignment: .leading) {
-                    Text("Temperament:")
-                        .font(.headline)
-                    Text(model.breed.temperament)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                }
-
-                // Description
-                VStack(alignment: .leading) {
-                    Text("Description:")
-                        .font(.headline)
-                    Text(model.breed.description)
-                        .font(.body)
-                        .foregroundColor(.secondary)
+                    VStack(alignment: .leading) {
+                        Text("Description:")
+                            .font(.headline)
+                        Text(model.breed.description)
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .padding()

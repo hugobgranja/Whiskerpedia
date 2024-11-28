@@ -3,8 +3,10 @@ import BreedsAPI
 import BreedsMocks
 
 public struct BreedRootView: View {
-    @Bindable private var viewModel: BreedRootViewModel
+    private var viewModel: BreedRootViewModel
     private weak var navDelegate: (any BreedNavDelegate)?
+    @State private var searchQuery: String = ""
+    @State private var task: Task<Void, Never>?
 
     public init(
         viewModel: BreedRootViewModel,
@@ -15,14 +17,42 @@ public struct BreedRootView: View {
     }
 
     public var body: some View {
-        BreedListView(
-            breeds: viewModel.breeds,
-            navDelegate: navDelegate
-        )
-        .task(viewModel.getBreeds)
-        .searchable(text: $viewModel.query)
-        .onChange(of: viewModel.query) {
-            Task { await viewModel.search() }
+        Group {
+            switch viewModel.presentationMode {
+            case .list:
+                ScrollView {
+                    LazyVStack(spacing: 20) {
+                        BreedListView(
+                            breeds: viewModel.paginatedBreeds,
+                            navDelegate: navDelegate
+                        )
+                        .animation(.default, value: viewModel.paginatedBreeds)
+
+                        if viewModel.isNextPageAvailable {
+                            ProgressView()
+                                .task(viewModel.getPage)
+                        }
+                    }
+                }
+
+            case .search:
+                ZStack {
+                    BreedListView(
+                        breeds: viewModel.searchBreeds,
+                        navDelegate: navDelegate
+                    )
+                    .animation(.default, value: viewModel.searchBreeds)
+
+                    if viewModel.isLoading {
+                        ProgressView()
+                    }
+                }
+            }
+        }
+        .searchable(text: $searchQuery)
+        .onChange(of: searchQuery) { _, newValue in
+            task?.cancel()
+            task = Task { await viewModel.search(query: newValue) }
         }
     }
 }

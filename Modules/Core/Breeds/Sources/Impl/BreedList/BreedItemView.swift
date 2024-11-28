@@ -18,13 +18,13 @@ struct BreedItemView: View {
                     Color.gray.opacity(0.3)
                 }
                 .resizable()
+                .aspectRatio(3 / 4, contentMode: .fill)
                 .cornerRadius(8)
 
             Text(name)
-                .font(.headline)
+                .font(.caption)
                 .lineLimit(1)
         }
-        .frame(height: 200)
     }
 }
 
