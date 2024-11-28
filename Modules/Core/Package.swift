@@ -82,3 +82,37 @@ package.products.append(contentsOf: [
         targets: ["CatClientImpl"]
     )
 ])
+
+// MARK: Database
+package.targets.append(contentsOf: [
+    .target(
+        name: "DatabaseAPI",
+        path: "Database/Sources/API"
+    ),
+    .target(
+        name: "DatabaseImpl",
+        dependencies: [
+            "DatabaseAPI"
+        ],
+        path: "Database/Sources/Impl"
+    ),
+    .testTarget(
+        name: "DatabaseTests",
+        dependencies: [
+            "DatabaseAPI",
+            "DatabaseImpl"
+        ],
+        path: "Database/Tests"
+    )
+])
+
+package.products.append(contentsOf: [
+    .library(
+        name: "DatabaseAPI",
+        targets: ["DatabaseAPI"]
+    ),
+    .library(
+        name: "DatabaseImpl",
+        targets: ["DatabaseImpl"]
+    )
+])
