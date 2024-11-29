@@ -30,7 +30,6 @@ public final class BreedRootViewModel {
         }
         catch {
             // TODO: Handle errors.
-            print(error)
         }
 
         isLoading = false
@@ -48,7 +47,6 @@ public final class BreedRootViewModel {
         }
         catch {
             // TODO: Handle errors.
-            print(error)
         }
 
         isLoading = false
@@ -71,7 +69,6 @@ public final class BreedRootViewModel {
         }
         catch {
             // TODO: Handle errors
-            print(error)
         }
     }
 }

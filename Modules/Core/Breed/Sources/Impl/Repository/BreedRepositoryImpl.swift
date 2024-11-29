@@ -39,6 +39,8 @@ public final class BreedRepositoryImpl: BreedRepository {
                 let initial = try getAll(context: context)
                 continuation.yield(initial)
 
+                guard !Task.isCancelled else { return }
+
                 try await requestBreeds()
                 let final = try getAll(context: context)
                 continuation.yield(final)
@@ -75,7 +77,7 @@ public final class BreedRepositoryImpl: BreedRepository {
         let predicate = #Predicate<BreedEntity> { $0.name.contains(query) }
         return try database.fetch(type: BreedEntity.self, using: context, matching: predicate)
             .map { map(from: $0) }
-    }
+    } 
 
     private func map(from entity: BreedEntity) -> Breed {
         let isFavorite = (try? favoriteRepository.isFavorite(id: entity.id)) ?? false

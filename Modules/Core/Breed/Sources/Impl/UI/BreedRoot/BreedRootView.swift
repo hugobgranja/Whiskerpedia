@@ -8,6 +8,7 @@ public struct BreedRootView: View {
     private weak var navDelegate: (any BreedNavDelegate)?
     @State private var searchQuery: String = ""
     @State private var searchTask: Task<Void, Never>?
+    @State private var refreshTask: Task<Void, Never>?
 
     public init(
         viewModel: BreedRootViewModel,
@@ -23,9 +24,9 @@ public struct BreedRootView: View {
                 breeds: viewModel.breeds,
                 navDelegate: navDelegate,
                 onToggleFavorite: { id in
-                    Task {
-                        viewModel.toggleFavorite(id: id)
-                        await viewModel.getBreeds()
+                    viewModel.toggleFavorite(id: id)
+                    refreshTask = Task {
+                        await refreshBreeds()
                     }
                 }
             )
@@ -37,8 +38,19 @@ public struct BreedRootView: View {
         .task(viewModel.getBreeds)
         .searchable(text: $searchQuery)
         .onChange(of: searchQuery) { _, newValue in
+            refreshTask?.cancel()
             searchTask?.cancel()
             searchTask = Task { await viewModel.search(query: newValue) }
+        }
+        .navigationTitle("Whiskerpedia")
+    }
+
+    private func refreshBreeds() async {
+        if searchQuery.isEmpty {
+            await viewModel.getBreeds()
+        }
+        else {
+            await viewModel.search(query: searchQuery)
         }
     }
 }
