@@ -17,5 +17,7 @@ public final class DatabaseAssembler {
                 fatalError("Could not create ModelContainer: \(error)")
             }
         }
+
+        container.autoRegister(Database.self, using: DatabaseImpl.init)
     }
 }

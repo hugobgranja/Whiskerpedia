@@ -2,10 +2,13 @@ import Foundation
 import BreedAPI
 import DatabaseAPI
 
-public final class BreedMapperImpl: DBMapper, BreedServiceMapper {
+public final class BreedMapperImpl: BreedMapper {
     public init() {}
 
-    public func map(entity: BreedEntity) -> Breed {
+    public func map(
+        entity: BreedEntity,
+        isFavorite: Bool
+    ) -> Breed {
         Breed(
             id: entity.id,
             name: entity.name,
@@ -13,23 +16,25 @@ public final class BreedMapperImpl: DBMapper, BreedServiceMapper {
             temperament: entity.temperament,
             description: entity.info,
             imageUrl: entity.imageUrl,
-            isFavorite: entity.isFavorite
+            isFavorite: isFavorite
         )
     }
 
-    public func map(object: Breed) -> BreedEntity {
+    public func map(breed: Breed) -> BreedEntity {
         return BreedEntity(
-            id: object.id,
-            name: object.name,
-            origin: object.origin,
-            temperament: object.temperament,
-            info: object.description,
-            imageUrl: object.imageUrl,
-            isFavorite: object.isFavorite
+            id: breed.id,
+            name: breed.name,
+            origin: breed.origin,
+            temperament: breed.temperament,
+            info: breed.description,
+            imageUrl: breed.imageUrl
         )
     }
 
-    public func map(dto: BreedDTO) -> Breed {
+    public func map(
+        dto: BreedDTO,
+        isFavorite: Bool
+    ) -> Breed {
         return Breed(
             id: dto.id,
             name: dto.name,
@@ -37,7 +42,7 @@ public final class BreedMapperImpl: DBMapper, BreedServiceMapper {
             temperament: dto.temperament,
             description: dto.description,
             imageUrl: dto.image?.url,
-            isFavorite: false
+            isFavorite: isFavorite
         )
     }
 }

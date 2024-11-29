@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B976943E2CF9F910000F175E /* FavoriteAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B976943D2CF9F910000F175E /* FavoriteAPI */; };
+		B97694402CF9F910000F175E /* FavoriteImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B976943F2CF9F910000F175E /* FavoriteImpl */; };
 		B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5D22CF6273E00B23C15 /* BackpackDI */; };
 		B9D280DD2CF8DE7E00EAA0B5 /* CatClientAPI in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DB2CF627A700B23C15 /* CatClientAPI */; };
 		B9D280DE2CF8DE7E00EAA0B5 /* CatClientImpl in Frameworks */ = {isa = PBXBuildFile; productRef = B9CFD5DD2CF627A700B23C15 /* CatClientImpl */; };
@@ -34,11 +36,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B97694402CF9F910000F175E /* FavoriteImpl in Frameworks */,
 				B9D280E02CF8DE7E00EAA0B5 /* BreedImpl in Frameworks */,
 				B9D280DF2CF8DE7E00EAA0B5 /* BreedAPI in Frameworks */,
 				B9D281322CF8E03C00EAA0B5 /* DatabaseAPI in Frameworks */,
 				B9D280DE2CF8DE7E00EAA0B5 /* CatClientImpl in Frameworks */,
 				B9D280DD2CF8DE7E00EAA0B5 /* CatClientAPI in Frameworks */,
+				B976943E2CF9F910000F175E /* FavoriteAPI in Frameworks */,
 				B9D281342CF8E03C00EAA0B5 /* DatabaseImpl in Frameworks */,
 				B9CFD5D32CF6273E00B23C15 /* BackpackDI in Frameworks */,
 			);
@@ -107,6 +111,8 @@
 				B905B7DF2CF8DDE200E8A8FF /* BreedImpl */,
 				B9D281312CF8E03C00EAA0B5 /* DatabaseAPI */,
 				B9D281332CF8E03C00EAA0B5 /* DatabaseImpl */,
+				B976943D2CF9F910000F175E /* FavoriteAPI */,
+				B976943F2CF9F910000F175E /* FavoriteImpl */,
 			);
 			productName = Whiskerpedia;
 			productReference = B9CC23E42CF4A53100C7A015 /* Whiskerpedia.app */;
@@ -387,6 +393,14 @@
 		B905B7DF2CF8DDE200E8A8FF /* BreedImpl */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BreedImpl;
+		};
+		B976943D2CF9F910000F175E /* FavoriteAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FavoriteAPI;
+		};
+		B976943F2CF9F910000F175E /* FavoriteImpl */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FavoriteImpl;
 		};
 		B9CFD5D22CF6273E00B23C15 /* BackpackDI */ = {
 			isa = XCSwiftPackageProductDependency;

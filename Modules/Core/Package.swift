@@ -23,6 +23,8 @@ package.targets.append(contentsOf: [
             "BreedMocks",
             "CatClientAPI",
             "DatabaseAPI",
+            "FavoriteAPI",
+            "FavoriteMocks",
             "Kingfisher",
         ],
         path: "Breed/Sources/Impl"
@@ -115,5 +117,37 @@ package.products.append(contentsOf: [
     .library(
         name: "DatabaseImpl",
         targets: ["DatabaseImpl"]
+    )
+])
+
+// MARK: Favorite
+package.targets.append(contentsOf: [
+    .target(
+        name: "FavoriteAPI",
+        path: "Favorite/Sources/API"
+    ),
+    .target(
+        name: "FavoriteImpl",
+        dependencies: [
+            "DatabaseAPI",
+            "FavoriteAPI"
+        ],
+        path: "Favorite/Sources/Impl"
+    ),
+    .target(
+        name: "FavoriteMocks",
+        dependencies: ["FavoriteAPI"],
+        path: "Favorite/Mocks"
+    )
+])
+
+package.products.append(contentsOf: [
+    .library(
+        name: "FavoriteAPI",
+        targets: ["FavoriteAPI"]
+    ),
+    .library(
+        name: "FavoriteImpl",
+        targets: ["FavoriteImpl"]
     )
 ])

@@ -1,35 +1,43 @@
 import Foundation
 import SwiftData
 
-@MainActor
-public protocol Database<M, S>: Sendable {
-    associatedtype M: PersistentModel
-    associatedtype S: Sendable
-
-    func fetch(
+public protocol Database: Sendable {
+    func makeContext() -> ModelContext
+    
+    func fetch<M: PersistentModel>(
+        type: M.Type,
+        using context: ModelContext,
         matching predicate: Predicate<M>?,
         sortedBy sortDescriptors: [SortDescriptor<M>]
-    ) throws -> [S]
+    ) throws -> [M]
 
-    func add(_ object: S)
-    func delete(matching predicate: Predicate<M>) throws
-    func save() throws
+    func add<M: PersistentModel>(_ model: M, using context: ModelContext)
+    func add<M: PersistentModel>(_ models: [M], using context: ModelContext)
+    func delete<M: PersistentModel>(using context: ModelContext, matching predicate: Predicate<M>) throws
+    func save(context: ModelContext) throws
 }
 
 public extension Database {
-    func fetchAll() throws -> [S] {
-        return try fetch(matching: nil, sortedBy: [])
+    func fetchAll<M: PersistentModel>(
+        type: M.Type,
+        using context: ModelContext
+    ) throws -> [M] {
+        return try fetch(type: type, using: context, matching: nil, sortedBy: [])
     }
 
-    func fetchAll(
+    func fetchAll<M: PersistentModel>(
+        type: M.Type,
+        using context: ModelContext,
         sortedBy sortDescriptors: [SortDescriptor<M>]
-    ) throws -> [S] {
-        return try fetch(matching: nil, sortedBy: sortDescriptors)
+    ) throws -> [M] {
+        return try fetch(type: type, using: context, matching: nil, sortedBy: sortDescriptors)
     }
 
-    func fetch(
+    func fetch<M: PersistentModel>(
+        type: M.Type,
+        using context: ModelContext,
         matching predicate: Predicate<M>
-    ) throws -> [S] {
-        return try fetch(matching: predicate, sortedBy: [])
+    ) throws -> [M] {
+        return try fetch(type: type, using: context, matching: predicate, sortedBy: [])
     }
 }

@@ -9,7 +9,6 @@ public final class BreedEntity {
     public var temperament: String
     public var info: String
     public var imageUrl: String?
-    public var isFavorite: Bool
 
     public init(
         id: String,
@@ -17,8 +16,7 @@ public final class BreedEntity {
         origin: String,
         temperament: String,
         info: String,
-        imageUrl: String?,
-        isFavorite: Bool
+        imageUrl: String?
     ) {
         self.id = id
         self.name = name
@@ -26,6 +24,5 @@ public final class BreedEntity {
         self.temperament = temperament
         self.info = info
         self.imageUrl = imageUrl
-        self.isFavorite = isFavorite
     }
 }

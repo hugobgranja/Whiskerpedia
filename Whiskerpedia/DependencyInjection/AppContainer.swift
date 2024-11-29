@@ -15,6 +15,7 @@ class AppContainer {
         ConfigsAssembler.assemble(container)
         CatClientAssembler.assemble(container)
         DatabaseAssembler.assemble(container)
+        FavoriteAssembler.assemble(container)
     }
 
     func resolve<T>(_ type: T.Type) -> T {

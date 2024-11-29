@@ -1,6 +1,7 @@
 import SwiftUI
 import BreedAPI
 import BreedMocks
+import FavoriteMocks
 
 public struct BreedRootView: View {
     private var viewModel: BreedRootViewModel
@@ -24,7 +25,13 @@ public struct BreedRootView: View {
                     LazyVStack(spacing: 20) {
                         BreedListView(
                             breeds: viewModel.paginatedBreeds,
-                            navDelegate: navDelegate
+                            navDelegate: navDelegate,
+                            onToggleFavorite: { id in
+                                Task {
+                                    await viewModel.toggleFavorite(id: id)
+                                    await viewModel.refreshPaginatedBreeds()
+                                }
+                            }
                         )
                         .animation(.default, value: viewModel.paginatedBreeds)
 
@@ -39,7 +46,13 @@ public struct BreedRootView: View {
                 ZStack {
                     BreedListView(
                         breeds: viewModel.searchBreeds,
-                        navDelegate: navDelegate
+                        navDelegate: navDelegate,
+                        onToggleFavorite: { id in
+                            Task {
+                                await viewModel.toggleFavorite(id: id)
+                                await viewModel.refreshSearchBreeds()
+                            }
+                        }
                     )
                     .animation(.default, value: viewModel.searchBreeds)
 
@@ -60,7 +73,10 @@ public struct BreedRootView: View {
 #Preview {
     NavigationStack {
         BreedRootView(
-            viewModel: BreedRootViewModel(breedRepository: BreedRepositoryMock()),
+            viewModel: BreedRootViewModel(
+                breedRepository: BreedRepositoryMock(),
+                favoriteRepository: FavoriteRepositoryMock()
+            ),
             navDelegate: nil
         )
     }

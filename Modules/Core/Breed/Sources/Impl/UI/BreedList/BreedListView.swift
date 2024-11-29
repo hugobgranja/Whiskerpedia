@@ -5,6 +5,7 @@ import BreedMocks
 public struct BreedListView: View {
     private let breeds: [Breed]
     private weak var navDelegate: (any BreedNavDelegate)?
+    private let onToggleFavorite: (String) -> Void
 
     private let columns: [GridItem] = [
         GridItem(.flexible()),
@@ -14,10 +15,12 @@ public struct BreedListView: View {
 
     public init(
         breeds: [Breed],
-        navDelegate: (any BreedNavDelegate)?
+        navDelegate: (any BreedNavDelegate)?,
+        onToggleFavorite: @escaping (String) -> Void
     ) {
         self.breeds = breeds
         self.navDelegate = navDelegate
+        self.onToggleFavorite = onToggleFavorite
     }
 
     public var body: some View {
@@ -25,8 +28,8 @@ public struct BreedListView: View {
             LazyVGrid(columns: columns, spacing: 24) {
                 ForEach(breeds) { breed in
                     BreedItemView(
-                        imageUrl: breed.imageUrl,
-                        name: breed.name
+                        breed: breed,
+                        onToggleFavorite: onToggleFavorite
                     )
                     .onTapGesture {
                         navDelegate?.goToDetail(breed: breed)
@@ -42,6 +45,7 @@ public struct BreedListView: View {
 #Preview {
     BreedListView(
         breeds: BreedRepositoryMock().breeds,
-        navDelegate: nil
+        navDelegate: nil,
+        onToggleFavorite: { _ in }
     )
 }

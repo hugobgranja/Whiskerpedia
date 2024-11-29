@@ -87,7 +87,19 @@ public final class BreedRepositoryMock: BreedRepository {
     ]
 
     public init() {}
-    
+
+    public func get(id: String) async throws -> Breed? {
+        return breeds[0]
+    }
+
+    public func getAll() async throws -> [Breed] {
+        return breeds
+    }
+
+    public func get(ids: [String]) async throws -> [Breed] {
+        return breeds
+    }
+
     public func get(limit: Int, page: Int) async throws -> BreedsPage {
         return BreedsPage(
             breeds: breeds,

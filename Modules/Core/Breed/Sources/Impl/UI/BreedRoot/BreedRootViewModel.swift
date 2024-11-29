@@ -1,6 +1,6 @@
 import Foundation
 import BreedAPI
-import Combine
+import FavoriteAPI
 
 @Observable
 @MainActor
@@ -15,6 +15,7 @@ public final class BreedRootViewModel {
     }
 
     private let breedRepository: BreedRepository
+    private let favoriteRepository: FavoriteRepository
     private(set) var paginatedBreeds: [Breed] = []
     private(set) var searchBreeds: [Breed] = []
     private var currentPage: Int = 0
@@ -26,9 +27,11 @@ public final class BreedRootViewModel {
     }
 
     public init(
-        breedRepository: BreedRepository
+        breedRepository: BreedRepository,
+        favoriteRepository: FavoriteRepository
     ) {
         self.breedRepository = breedRepository
+        self.favoriteRepository = favoriteRepository
     }
 
     func getPage() async {
@@ -73,5 +76,40 @@ public final class BreedRootViewModel {
         }
 
         isLoading = false
+    }
+
+    func toggleFavorite(id: String) async {
+        do {
+            guard let breed = try await breedRepository.get(id: id) else { return }
+
+            if breed.isFavorite {
+                try favoriteRepository.delete(id: id)
+            }
+            else {
+                try favoriteRepository.add(id: id)
+            }
+        }
+        catch {
+            // TODO: Handle errors
+        }
+    }
+
+    func refreshPaginatedBreeds() async {
+        do {
+            self.paginatedBreeds = try await breedRepository.getAll()
+        }
+        catch {
+            // TODO: Handle errors
+        }
+    }
+
+    func refreshSearchBreeds() async {
+        do {
+            let ids = searchBreeds.map { $0.id }
+            self.searchBreeds = try await breedRepository.get(ids: ids)
+        }
+        catch {
+            // TODO: Handle errors
+        }
     }
 }
