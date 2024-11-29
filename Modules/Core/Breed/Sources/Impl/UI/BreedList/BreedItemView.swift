@@ -4,10 +4,10 @@ import BreedMocks
 import Kingfisher
 
 struct BreedItemView: View {
-    let breed: Breed
-    let imageUrl: URL?
-    let onToggleFavorite: (String) -> Void
-    var favoriteImageName: String { breed.isFavorite ? "star.fill" : "star" }
+    private let breed: Breed
+    private let imageUrl: URL?
+    private let onToggleFavorite: (String) -> Void
+    private var favoriteImageName: String { breed.isFavorite ? "star.fill" : "star" }
 
     init(
         breed: Breed,
@@ -39,7 +39,6 @@ struct BreedItemView: View {
                         .padding(8)
                         .background(Color.black.opacity(0.2))
                         .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
                 }
                 .padding(8)
             }
