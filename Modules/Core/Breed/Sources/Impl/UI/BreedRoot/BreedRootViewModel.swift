@@ -5,26 +5,10 @@ import FavoriteAPI
 @Observable
 @MainActor
 public final class BreedRootViewModel {
-    enum Constants {
-        static let paginationLimit = 20
-    }
-
-    enum PresentationMode {
-        case list
-        case search
-    }
-
     private let breedRepository: BreedRepository
     private let favoriteRepository: FavoriteRepository
-    private(set) var paginatedBreeds: [Breed] = []
-    private(set) var searchBreeds: [Breed] = []
-    private var currentPage: Int = 0
-    private(set) var isNextPageAvailable: Bool = true
+    private(set) var breeds: [Breed] = []
     private(set) var isLoading: Bool = false
-
-    var presentationMode: PresentationMode {
-        searchBreeds.isEmpty ? .list : .search
-    }
 
     public init(
         breedRepository: BreedRepository,
@@ -34,27 +18,19 @@ public final class BreedRootViewModel {
         self.favoriteRepository = favoriteRepository
     }
 
-    func getPage() async {
-        guard isNextPageAvailable else { return }
-
-        isLoading = true
-
+    func getBreeds() async {
         do {
-            let response = try await breedRepository.get(
-                limit: Constants.paginationLimit,
-                page: currentPage
-            )
+            isLoading = true
 
-            currentPage += 1
+            let stream = breedRepository.getAll()
 
-            if paginatedBreeds.count >= response.totalItemCount {
-                isNextPageAvailable = false
+            for try await breeds in stream {
+                self.breeds = breeds
             }
-
-            self.paginatedBreeds += response.breeds
         }
         catch {
             // TODO: Handle errors.
+            print(error)
         }
 
         isLoading = false
@@ -62,26 +38,30 @@ public final class BreedRootViewModel {
 
     func search(query: String) async {
         guard !query.isEmpty else {
-            searchBreeds = []
+            await getBreeds()
             return
         }
 
-        isLoading = true
-
         do {
-            self.searchBreeds = try await breedRepository.search(query: query)
+            isLoading = true
+            self.breeds = try breedRepository.search(query: query)
         }
         catch {
             // TODO: Handle errors.
+            print(error)
         }
 
         isLoading = false
     }
 
-    func toggleFavorite(id: String) async {
-        do {
-            guard let breed = try await breedRepository.get(id: id) else { return }
+    func toggleFavorite(id: String) {
+        guard
+            let breed = breeds.filter({ $0.id == id }).first
+        else {
+            return
+        }
 
+        do {
             if breed.isFavorite {
                 try favoriteRepository.delete(id: id)
             }
@@ -91,25 +71,7 @@ public final class BreedRootViewModel {
         }
         catch {
             // TODO: Handle errors
-        }
-    }
-
-    func refreshPaginatedBreeds() async {
-        do {
-            self.paginatedBreeds = try await breedRepository.getAll()
-        }
-        catch {
-            // TODO: Handle errors
-        }
-    }
-
-    func refreshSearchBreeds() async {
-        do {
-            let ids = searchBreeds.map { $0.id }
-            self.searchBreeds = try await breedRepository.get(ids: ids)
-        }
-        catch {
-            // TODO: Handle errors
+            print(error)
         }
     }
 }

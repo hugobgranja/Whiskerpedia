@@ -7,7 +7,7 @@ public struct BreedRootView: View {
     private var viewModel: BreedRootViewModel
     private weak var navDelegate: (any BreedNavDelegate)?
     @State private var searchQuery: String = ""
-    @State private var task: Task<Void, Never>?
+    @State private var searchTask: Task<Void, Never>?
 
     public init(
         viewModel: BreedRootViewModel,
@@ -18,54 +18,27 @@ public struct BreedRootView: View {
     }
 
     public var body: some View {
-        Group {
-            switch viewModel.presentationMode {
-            case .list:
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        BreedListView(
-                            breeds: viewModel.paginatedBreeds,
-                            navDelegate: navDelegate,
-                            onToggleFavorite: { id in
-                                Task {
-                                    await viewModel.toggleFavorite(id: id)
-                                    await viewModel.refreshPaginatedBreeds()
-                                }
-                            }
-                        )
-                        .animation(.default, value: viewModel.paginatedBreeds)
-
-                        if viewModel.isNextPageAvailable {
-                            ProgressView()
-                                .task(viewModel.getPage)
-                        }
+        ZStack {
+            BreedListView(
+                breeds: viewModel.breeds,
+                navDelegate: navDelegate,
+                onToggleFavorite: { id in
+                    Task {
+                        viewModel.toggleFavorite(id: id)
+                        await viewModel.getBreeds()
                     }
                 }
+            )
 
-            case .search:
-                ZStack {
-                    BreedListView(
-                        breeds: viewModel.searchBreeds,
-                        navDelegate: navDelegate,
-                        onToggleFavorite: { id in
-                            Task {
-                                await viewModel.toggleFavorite(id: id)
-                                await viewModel.refreshSearchBreeds()
-                            }
-                        }
-                    )
-                    .animation(.default, value: viewModel.searchBreeds)
-
-                    if viewModel.isLoading {
-                        ProgressView()
-                    }
-                }
+            if viewModel.isLoading {
+                ProgressView()
             }
         }
+        .task(viewModel.getBreeds)
         .searchable(text: $searchQuery)
         .onChange(of: searchQuery) { _, newValue in
-            task?.cancel()
-            task = Task { await viewModel.search(query: newValue) }
+            searchTask?.cancel()
+            searchTask = Task { await viewModel.search(query: newValue) }
         }
     }
 }

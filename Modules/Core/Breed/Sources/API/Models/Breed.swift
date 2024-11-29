@@ -26,12 +26,4 @@ public struct Breed: Identifiable, Sendable, Equatable, Hashable {
         self.imageUrl = imageUrl
         self.isFavorite = isFavorite
     }
-
-    public static func == (lhs: Breed, rhs: Breed) -> Bool {
-        return lhs.id == rhs.id
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }

@@ -3,12 +3,11 @@ import BreedAPI
 import CatClientAPI
 import DatabaseAPI
 import FavoriteAPI
+import SwiftData
 
 public final class BreedRepositoryImpl: BreedRepository {
     enum Constants {
         static let breedsPath = "v1/breeds"
-        static let searchPath = "v1/breeds/search"
-        static let totalItemCountHeaderKey = "pagination-count"
     }
 
     private let client: CatClient
@@ -31,77 +30,51 @@ public final class BreedRepositoryImpl: BreedRepository {
         self.favoriteRepository = favoriteRepository
     }
 
-    public func getAll() async throws -> [Breed] {
-        let context = database.makeContext()
-        return try database.fetchAll(type: BreedEntity.self, using: context)
-            .map { map(from: $0) }
+    public func getAll() -> AsyncThrowingStream<[Breed], Error> {
+        return AsyncThrowingStream { continuation in
+            Task { [weak self] in
+                guard let self else { return }
+                let context = database.makeContext()
+
+                let initial = try getAll(context: context)
+                continuation.yield(initial)
+
+                try await requestBreeds()
+                let final = try getAll(context: context)
+                continuation.yield(final)
+                continuation.finish()
+            }
+        }
     }
 
-    public func get(id: String) async throws -> Breed? {
-        let context = database.makeContext()
-        let predicate = #Predicate<BreedEntity> { $0.id == id }
+    private func getAll(context: ModelContext) throws -> [Breed] {
+        let sortDescriptor = SortDescriptor(\BreedEntity.name)
 
+        return try database.fetchAll(
+            type: BreedEntity.self,
+            using: context,
+            sortedBy: [sortDescriptor]
+        )
+        .map { map(from: $0) }
+    }
+
+    private func requestBreeds() async throws {
         guard
-            let entity = try database.fetch(
-                type: BreedEntity.self,
-                using: context,
-                matching: predicate
-            ).first
+            let url = URL(string: "\(baseURL)\(Constants.breedsPath)")
         else {
-            return nil
+            throw URLError(.badURL)
         }
 
-        return map(from: entity)
+        let response = try await client.request(url: url, method: .get)
+        let breeds = try response.decode([BreedDTO].self).map { map(from: $0) }
+        try store(breeds: breeds)
     }
 
-    public func get(ids: [String]) async throws -> [Breed] {
+    public func search(query: String) throws -> [Breed] {
         let context = database.makeContext()
-        let predicate = #Predicate<BreedEntity> { ids.contains($0.id) }
+        let predicate = #Predicate<BreedEntity> { $0.name.contains(query) }
         return try database.fetch(type: BreedEntity.self, using: context, matching: predicate)
             .map { map(from: $0) }
-    }
-
-    public func get(limit: Int, page: Int) async throws -> BreedsPage {
-        let queryItems = [
-            URLQueryItem(name: "limit", value: String(limit)),
-            URLQueryItem(name: "page", value: String(page))
-        ]
-
-        guard
-            let url = URL(string: "\(baseURL)\(Constants.breedsPath)")?
-                .appending(queryItems: queryItems)
-        else {
-            throw URLError(.badURL)
-        }
-
-        let response = try await client.request(url: url, method: .get)
-
-        let breeds = try response.decode([BreedDTO].self).map { map(from: $0) }
-        try store(breeds: breeds)
-
-        let paginationCount = response.headers?[Constants.totalItemCountHeaderKey] as? String
-        let totalItemCount = paginationCount.flatMap { Int($0) } ?? 0
-
-        return BreedsPage(
-            breeds: breeds,
-            totalItemCount: totalItemCount
-        )
-    }
-
-    public func search(query: String) async throws -> [Breed] {
-        let queryItems = [URLQueryItem(name: "q", value: query)]
-
-        guard
-            let url = URL(string: "\(baseURL)\(Constants.searchPath)")?
-                .appending(queryItems: queryItems)
-        else {
-            throw URLError(.badURL)
-        }
-
-        let response = try await client.request(url: url, method: .get)
-        let breeds = try response.decode([BreedDTO].self).map { map(from: $0) }
-        try store(breeds: breeds)
-        return breeds
     }
 
     private func map(from entity: BreedEntity) -> Breed {

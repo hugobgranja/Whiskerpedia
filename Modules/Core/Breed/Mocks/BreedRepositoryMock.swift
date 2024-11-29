@@ -88,26 +88,14 @@ public final class BreedRepositoryMock: BreedRepository {
 
     public init() {}
 
-    public func get(id: String) async throws -> Breed? {
-        return breeds[0]
+    public func getAll() -> AsyncThrowingStream<[BreedAPI.Breed], any Error> {
+        return AsyncThrowingStream { [breeds] continuation in
+            continuation.yield(breeds)
+            continuation.finish()
+        }
     }
 
-    public func getAll() async throws -> [Breed] {
-        return breeds
-    }
-
-    public func get(ids: [String]) async throws -> [Breed] {
-        return breeds
-    }
-
-    public func get(limit: Int, page: Int) async throws -> BreedsPage {
-        return BreedsPage(
-            breeds: breeds,
-            totalItemCount: 60
-        )
-    }
-
-    public func search(query: String) async throws -> [Breed] {
+    public func search(query: String) throws -> [Breed] {
         return breeds.filter { $0.name.contains(query) }
     }
 }
